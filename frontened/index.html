@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Identification & Attendance System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2/dist/quagga.min.js"></script>
+</head>
+
+<body>
+
+    <header class="header">
+
+        <h1>
+            Student Identification & Attendance System
+        </h1>
+
+        <p>
+            Barcode-based student identification and attendance management
+        </p>
+
+    </header>
+
+
+    <main class="container">
+
+
+        <!-- ========================= -->
+        <!-- ATTENDANCE DASHBOARD -->
+        <!-- ========================= -->
+
+        <section class="card">
+
+            <h2>📊 Today's Attendance</h2>
+
+            <p id="summaryDate">
+                Loading date...
+            </p>
+
+            <div class="dashboard">
+
+                <div class="card">
+                    <h3>Total Students</h3>
+                    <p id="totalStudents">-</p>
+                </div>
+
+                <div class="card">
+                    <h3>Present</h3>
+                    <p id="presentStudents">-</p>
+                </div>
+
+                <div class="card">
+                    <h3>Absent</h3>
+                    <p id="absentStudents">-</p>
+                </div>
+
+                <div class="card">
+                    <h3>Attendance</h3>
+                    <p id="attendancePercentage">-</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <br>
+
+
+        <!-- ========================= -->
+        <!-- SCANNER + STUDENT -->
+        <!-- ========================= -->
+
+        <div class="dashboard">
+
+
+            <!-- BARCODE SCANNER -->
+
+            <section class="card">
+
+                <h2>📷 Barcode Scanner</h2>
+
+                <div id="scanner"></div>
+
+                <p id="scannerStatus">
+                    Scanner is starting...
+                </p>
+
+
+                <div class="manual-section">
+
+                    <h2>Manual Entry</h2>
+
+                    <input
+                        type="text"
+                        id="manualBarcode"
+                        placeholder="Enter Student ID"
+                    >
+
+                    <button onclick="manualIdentifyStudent()">
+                        Identify Student
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- STUDENT INFORMATION -->
+
+            <section class="card">
+
+                <h2>👨‍🎓 Student Information</h2>
+
+                <div
+                    id="studentInfo"
+                    class="student-card"
+                >
+
+                    <p>
+                        Waiting for student identification...
+                    </p>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+    <footer class="footer">
+
+        <p>
+            Student Identification & Attendance System
+        </p>
+
+    </footer>
+
+
+    <script src="qrScanner.js"></script>
+
+
+    <script>
+
+        // ==========================================
+        // LOAD ATTENDANCE SUMMARY
+        // ==========================================
+
+        async function loadAttendanceSummary() {
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:3000/api/attendance/summary"
+                );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to load attendance summary"
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                document.getElementById(
+                    "summaryDate"
+                ).textContent =
+                    "Date: " + data.date;
+
+
+                document.getElementById(
+                    "totalStudents"
+                ).textContent =
+                    data.totalStudents;
+
+
+                document.getElementById(
+                    "presentStudents"
+                ).textContent =
+                    data.presentStudents;
+
+
+                document.getElementById(
+                    "absentStudents"
+                ).textContent =
+                    data.absentStudents;
+
+
+                document.getElementById(
+                    "attendancePercentage"
+                ).textContent =
+                    data.attendancePercentage + "%";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Summary Error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // Load dashboard
+        loadAttendanceSummary();
+
+
+        // Start scanner
+        startBarcodeScanner();
+
+    </script>
+
+</body>
+
+</html>

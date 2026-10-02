@@ -1,0 +1,140 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+.header {
+    background: #123b63;
+    color: white;
+    padding: 20px 40px;
+}
+
+.header h1 {
+    font-size: 28px;
+}
+
+.header p {
+    margin-top: 6px;
+    opacity: 0.85;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    margin-bottom: 15px;
+    color: #123b63;
+}
+
+#scanner {
+    width: 100%;
+    min-height: 300px;
+    background: #111827;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#scanner video {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+#scannerStatus {
+    margin-top: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.manual-section {
+    margin-top: 25px;
+}
+
+input {
+    width: 70%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    background: #123b63;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0d2d4d;
+}
+
+.student-card {
+    margin-top: 15px;
+    padding: 18px;
+    background: #f8fafc;
+    border-left: 5px solid #123b63;
+    border-radius: 8px;
+}
+
+.student-card p {
+    margin: 9px 0;
+}
+
+.status-present {
+    color: green;
+    font-weight: bold;
+}
+
+.status-warning {
+    color: #d97706;
+    font-weight: bold;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    color: #64748b;
+}
+
+@media (max-width: 800px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
